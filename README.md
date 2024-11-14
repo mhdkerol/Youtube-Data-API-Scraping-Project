@@ -11,3 +11,14 @@ This project utilizes the YouTube Data API to scrape and extract channel data, s
 - **YouTube Data API Integration:** Establishes secure access and communication with the YouTube Data API for extracting relevant channel data.
 - **Data Extraction:** Retrieves key channel metrics, including subscriber count, total views, and video statistics for specified channels.
 - **Data Structuring:** Organizes extracted data into a Pandas DataFrame, offering a streamlined and flexible structure for further analysis or integration with other data workflows.
+
+## Python Script
+
+### Install and import necessary libraries
+
+'''Python
+!pip install google-api-python-client
+from googleapiclient.discovery import build
+import pandas as pd
+import numpy as np
+''''
