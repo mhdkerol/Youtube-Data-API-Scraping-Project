@@ -16,9 +16,9 @@ This project utilizes the YouTube Data API to scrape and extract channel data, s
 
 ### Install and import necessary libraries
 
-'''Python
+```python
 !pip install google-api-python-client
 from googleapiclient.discovery import build
 import pandas as pd
 import numpy as np
-''''
+
