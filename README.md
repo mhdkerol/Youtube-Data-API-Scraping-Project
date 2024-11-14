@@ -21,4 +21,30 @@ This project utilizes the YouTube Data API to scrape and extract channel data, s
 from googleapiclient.discovery import build
 import pandas as pd
 import numpy as np
+```
+
+### Define function to extract the data
+
+```python
+def get_channel_stats(youtube, channel_ids):
+    
+    all_data=[]
+    
+    request = youtube.channels().list(
+               part='snippet,contentDetails,statistics',
+               id= ','.join(channel_ids))
+    
+    response = request.execute()
+    
+    
+    for i in range(len(response['items'])):
+        data = dict(channel_name = response['items'][i]['snippet']['title'],
+                subscribers = response['items'][i]['statistics']['subscriberCount'],
+                total_video = response['items'][i]['statistics']['videoCount'],
+                total_view = response['items'][i]['statistics']['viewCount'])
+    
+        all_data.append(data)
+    
+    return all_data
+```
 
