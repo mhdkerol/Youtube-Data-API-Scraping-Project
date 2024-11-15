@@ -206,6 +206,7 @@ def get_video_details(youtube, video_ids):
     return all_video_stats
 
 video_details = get_video_details(youtube, video_ids)
+video_details
 
 ```
 
