@@ -26,6 +26,20 @@ import numpy as np
 ### Define function to extract the data
 
 ```python
+
+api_key = "AIzaSyALXOgP81UrZyKiZShyB27VcFNX1TC2agw"
+channel_ids = ['UCAq9f7jFEA7Mtl3qOZy2h1A', #Zach Wilson
+               'UCChmJrVa8kDg05JfCmxpLRw', #Darshil Parmar
+               'UCkHdBeQ4DuvBXTahMYZVlMA', #Kenji Explains
+               'UC7cs8q-gJRlGwj4A8OmCmXg', #Alex the Analyst
+               'UCtoNXlIegvxkvf5Ji8S57Ag', #Lore so what
+               'UCLLw7jmFsvfIVaUFsLs8mlQ', #Luke Barousse
+               'UCD7FERT7OXNgLYkvEyy3qGQ',] #Zero Analyst
+
+youtube = build('youtube', 'v3', developerKey = api_key)
+youtube
+
+
 def get_channel_stats(youtube, channel_ids):
     
     all_data=[]
