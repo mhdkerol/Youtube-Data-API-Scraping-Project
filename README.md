@@ -83,7 +83,7 @@ def get_channel_stats(youtube, channel_ids):
     return all_data
 
 channel_stats = get_channel_stats(youtube, channel_ids)
-
+channel_stats
 ```
 
 ### 3. Store Extracted Data in a DataFrame & Convert Columns to Numeric
