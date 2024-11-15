@@ -81,3 +81,23 @@ def get_channel_stats(youtube, channel_ids):
     
     return all_data
 ```
+
+### 3. Store Extracted Data in a DataFrame & Convert Columns to Numeric
+
+```python
+
+# Get channel stats using the function defined above
+channel_stats = get_channel_stats(youtube, channel_ids)
+
+# Store the retrieved data into a Pandas DataFrame
+channel_data = pd.DataFrame(channel_stats)
+
+# Convert specific columns to numeric data types for analysis
+channel_data['subscribers'] = pd.to_numeric(channel_data['subscribers'])
+channel_data['total_video'] = pd.to_numeric(channel_data['total_video'])
+channel_data['total_view'] = pd.to_numeric(channel_data['total_view'])
+
+# Display the DataFrame with channel statistics
+channel_data
+
+```
