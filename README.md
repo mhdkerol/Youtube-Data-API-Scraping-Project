@@ -75,11 +75,13 @@ def get_channel_stats(youtube, channel_ids):
             'channel_name': response['items'][i]['snippet']['title'],
             'subscribers': response['items'][i]['statistics']['subscriberCount'],
             'total_video': response['items'][i]['statistics']['videoCount'],
-            'total_view': response['items'][i]['statistics']['viewCount']
+            'total_view': response['items'][i]['statistics']['viewCount'],
+            'playlist_id': response['items'][i]['contentDetails']['relatedPlaylists']['uploads']
         }
         all_data.append(data)
     
     return all_data
+
 ```
 
 ### 3. Store Extracted Data in a DataFrame & Convert Columns to Numeric
