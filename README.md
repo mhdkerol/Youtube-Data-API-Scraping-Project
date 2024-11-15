@@ -82,14 +82,13 @@ def get_channel_stats(youtube, channel_ids):
     
     return all_data
 
+channel_stats = get_channel_stats(youtube, channel_ids)
+
 ```
 
 ### 3. Store Extracted Data in a DataFrame & Convert Columns to Numeric
 
 ```python
-
-# Get channel stats using the function defined above
-channel_stats = get_channel_stats(youtube, channel_ids)
 
 # Store the retrieved data into a Pandas DataFrame
 channel_data = pd.DataFrame(channel_stats)
@@ -98,7 +97,7 @@ channel_data = pd.DataFrame(channel_stats)
 channel_data['subscribers'] = pd.to_numeric(channel_data['subscribers'])
 channel_data['total_video'] = pd.to_numeric(channel_data['total_video'])
 channel_data['total_view'] = pd.to_numeric(channel_data['total_view'])
-
+channel_data
 ```
 
 ### 4. Simple Visualization of Total Views and Subscribers
@@ -169,6 +168,9 @@ def get_video_ids(youtube, playlist_id):
 
     return video_ids
 
+video_ids = get_video_ids(youtube, playlist_id)
+video_ids
+
 ```
 
 ### 7. Define a Function to Retrieve Video Statistics
@@ -203,14 +205,13 @@ def get_video_details(youtube, video_ids):
     
     return all_video_stats
 
+video_details = get_video_details(youtube, video_ids)
+
 ```
 
 ### 8. Store Video Data in a DataFrame and Clean Up the Data
 
 ```python
-
-# Get video statistics using the function defined above
-video_details = get_video_details(youtube, video_ids)
 
 # Store the retrieved video data in a Pandas DataFrame
 video_data = pd.DataFrame(video_details)
