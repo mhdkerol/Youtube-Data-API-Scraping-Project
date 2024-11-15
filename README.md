@@ -97,7 +97,164 @@ channel_data['subscribers'] = pd.to_numeric(channel_data['subscribers'])
 channel_data['total_video'] = pd.to_numeric(channel_data['total_video'])
 channel_data['total_view'] = pd.to_numeric(channel_data['total_view'])
 
-# Display the DataFrame with channel statistics
-channel_data
+```
+
+### 4. Simple Visualization of Total Views and Subscribers
+
+```python
+
+import seaborn as sns  # Import Seaborn for visualization
+
+# Set the figure size for better readability
+sns.set(rc={'figure.figsize':(10, 10)})
+
+# Create a bar plot for subscriber count per channel
+ax1 = sns.barplot(x='channel_name', y='subscribers', data=channel_data)
+
+# Create a bar plot for total views per channel
+ax2 = sns.barplot(x='channel_name', y='total_view', data=channel_data)
 
 ```
+
+### 5. Select a Specific Channel to Retrieve Video Stats
+
+```python
+
+# Retrieve playlist ID for a specific channel ('Alex The Analyst' in this case)
+playlist_id = channel_data.loc[channel_data['channel_name'] == 'Alex The Analyst', 'playlist_id'].iloc[0]
+playlist_id
+
+```
+
+### 6. Define a Function to Retrieve Video IDs from a Playlist
+
+```python
+
+def get_video_ids(youtube, playlist_id):
+    # Initial request to get the first page of playlist items
+    request = youtube.playlistItems().list(
+        part='contentDetails',
+        playlistId=playlist_id,
+        maxResults=50
+    )
+    response = request.execute()
+
+    video_ids = []
+
+    # Loop through the first set of videos and append their video IDs
+    for item in response['items']:
+        video_ids.append(item['contentDetails']['videoId'])
+
+    # Check if there are more pages of results
+    next_page_token = response.get('nextPageToken')
+    
+    while next_page_token:
+        # Request the next set of results if there's a next page
+        request = youtube.playlistItems().list(
+            part='contentDetails',
+            playlistId=playlist_id,
+            maxResults=50,
+            pageToken=next_page_token
+        )
+        response = request.execute()
+
+        # Append video IDs from the next page
+        for item in response['items']:
+            video_ids.append(item['contentDetails']['videoId'])
+
+        # Update next page token for pagination
+        next_page_token = response.get('nextPageToken')
+
+    return video_ids
+
+```
+
+### 7. Define a Function to Retrieve Video Statistics
+
+```python
+
+def get_video_details(youtube, video_ids):
+    all_video_stats = []
+    
+    # Loop over video IDs in chunks of 50
+    for i in range(0, len(video_ids), 50):
+        # Request video data for a batch of 50 videos at a time
+        request = youtube.videos().list(
+            part='snippet,statistics',  # Include video snippet and statistics
+            id=','.join(video_ids[i:i+50])  # Join video IDs into a single string
+        )
+        response = request.execute()
+
+        # Process each video in the response
+        for video in response['items']:
+            # Extract video statistics and create a dictionary
+            video_stats = {
+                'Title': video['snippet']['title'],
+                'Published_date': video['snippet']['publishedAt'],
+                'Views': video['statistics']['viewCount'],
+                'Likes': video['statistics']['likeCount'],
+                'Comments': video['statistics']['commentCount']
+            }
+            
+            # Append the video stats to the list
+            all_video_stats.append(video_stats)
+    
+    return all_video_stats
+
+```
+
+### 8. Store Video Data in a DataFrame and Clean Up the Data
+
+```python
+
+# Get video statistics using the function defined above
+video_details = get_video_details(youtube, video_ids)
+
+# Store the retrieved video data in a Pandas DataFrame
+video_data = pd.DataFrame(video_details)
+
+# Convert the 'Published_date' column to datetime and extract the date
+video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
+
+# Convert numeric columns to appropriate types
+video_data['Views'] = pd.to_numeric(video_data['Views'])
+video_data['Likes'] = pd.to_numeric(video_data['Likes'])
+video_data['Comments'] = pd.to_numeric(video_data['Comments'])
+
+# Display the video data
+video_data
+
+```
+
+### 9. Sort the Data by Views and Display Top 10 Videos
+
+```python
+
+# Sort the data by views in descending order and display the top 10 most viewed videos
+top10_videos = video_data.sort_values(by='Views', ascending=False).head(10)
+
+# Create a bar plot showing the top 10 videos by views
+ay1 = sns.barplot(x='Views', y='Title', data=top10_videos)
+
+```
+
+### 10. Analyze Videos per Month
+
+```python
+
+# Extract the month from the 'Published_date' column
+video_data['Month'] = pd.to_datetime(video_data['Published_date']).dt.strftime('%b')
+
+# Group the data by month and count the number of videos per month
+videos_per_month = video_data.groupby('Month', as_index=False).size()
+
+# Sort the months in calendar order
+sort_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+videos_per_month.index = pd.CategoricalIndex(videos_per_month['Month'], categories=sort_order, ordered=True)
+videos_per_month = videos_per_month.sort_index()
+
+# Create a bar plot showing the number of videos per month
+ay2 = sns.barplot(x='Month', y='size', data=videos_per_month)
+
+```
+
