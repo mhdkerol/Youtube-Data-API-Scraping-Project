@@ -1,6 +1,6 @@
 # Youtube Data API Scraping Mini Project
 
-![](https://github.com/mhdkerol/Youtube-Data-API-Scraping-Project/blob/main/youtube-icon-logo-png-transparent.png)
+![](https://github.com/mhdkerol/Youtube-Data-API-Scraping-Project/blob/main/1727611626_logo-youtube-png.jpg)
 
 ## Overview
 
