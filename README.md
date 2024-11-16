@@ -43,6 +43,8 @@ pip install google-api-python-client pandas numpy seaborn
 
 ### 1. Install and Import Necessary Libraries & Define Variables
 
+This code sets up a YouTube Data API client using Python for a personal project. It imports essential libraries for API interaction and data handling. With an API key for authentication and a list of YouTube channel IDs, it initializes the API client to extract data for analysis and visualization.
+
 ```python
 
 !pip install google-api-python-client  # Install the YouTube API client
@@ -68,6 +70,8 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 ```
 
 ### 2. Define a Function to Extract Channel Data
+
+This code defines a function, get_channel_stats, to retrieve and process statistics for a list of YouTube channels using the YouTube Data API. The function takes the API client instance (youtube) and a list of channel IDs as parameters. It makes an API request to fetch details such as channel metadata (snippet) and statistics (statistics) for the provided channel IDs. The relevant data for each channel—such as channel name, subscriber count, total number of videos, total views, and the upload playlist ID—are extracted and stored in a dictionary, which is then appended to a list. This list, all_data, is returned, containing the gathered statistics for all specified channels. The variable channel_stats holds the results after calling the function with the given channel_ids.
 
 ```python
 
@@ -103,6 +107,8 @@ channel_stats
 
 ### 3. Store Extracted Data in a DataFrame & Convert Columns to Numeric
 
+This code snippet stores the data retrieved from the get_channel_stats function into a Pandas DataFrame named channel_data. This allows for easier manipulation and analysis of the data. It then converts the subscribers, total_video, and total_view columns to numeric data types to facilitate quantitative analysis. The DataFrame channel_data will display a structured table containing the channel statistics, with numeric values ready for further data processing and analysis.
+
 ```python
 
 # Store the retrieved data into a Pandas DataFrame
@@ -116,6 +122,8 @@ channel_data
 ```
 
 ### 4. Simple Visualization of Total Views and Subscribers
+
+This code uses Seaborn to create visualizations of channel statistics for a set of YouTube channels. First, it sets the figure size to enhance readability. The first bar plot (ax1) shows the number of subscribers for each channel, while the second bar plot (ax2) displays the total number of views per channel. The visualizations offer a clear comparison of channel performance based on subscribers and views, providing useful insights into their reach and popularity.
 
 ```python
 
