@@ -6,9 +6,24 @@
 
 This project utilizes the YouTube Data API to scrape and extract channel data, storing it in a structured format using Pandas DataFrames. The goal is to enable efficient data retrieval and provide a foundation for further data analysis and manipulation. The project also includes simple visualizations to offer insights about the data retrieved.
 
-## YouTube API Documentation
+## Pre-Requisites
 
-[YouTube Data API Documentation](https://developers.google.com/youtube/v3)
+This project requires a YouTube API key as a credential to access YouTube data.
+
+### How to Generate a YouTube API Key
+
+1. Go to the Google Cloud Console.
+2. Create a new project or select an existing project.
+3. Navigate to the "Library" section from the left-hand menu.
+4. In the search bar, type "YouTube Data API v3" and click on it.
+5. Click "Enable" to enable the API for your project.
+6. Go to the "Credentials" tab on the left-hand menu.
+7. Click on "Create Credentials" and select "API Key" from the dropdown menu.
+8. Your new API key will be generated, and you can copy it for use in your project.
+
+For more details, refer to the [YouTube Data API Documentation](https://developers.google.com/youtube/v3)
+
+**NOTE: In this project, the YouTube API key is hidden and represented as "YOUR_YOUTUBE_API_KEY". Please replace it with your actual generated API key.**
 
 ## Key Features
 
