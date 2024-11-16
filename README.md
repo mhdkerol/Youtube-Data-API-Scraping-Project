@@ -12,7 +12,7 @@ This project requires a YouTube API key as a credential to access YouTube data.
 
 ### How to Generate a YouTube API Key
 
-1. Go to the Google Cloud Console.
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
 2. Create a new project or select an existing project.
 3. Navigate to the "Library" section from the left-hand menu.
 4. In the search bar, type "YouTube Data API v3" and click on it.
