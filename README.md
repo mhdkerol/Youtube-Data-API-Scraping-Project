@@ -1,4 +1,4 @@
-# YouTube Data API Scraping Mini Project
+# YouTube Data API Scraping Project
 
 ![YouTube Logo](https://github.com/mhdkerol/Youtube-Data-API-Scraping-Project/blob/main/1727611626_logo-youtube-png.jpg)
 
@@ -36,7 +36,7 @@ For more details, refer to the [YouTube Data API Documentation](https://develope
 Before running the project, make sure to install the necessary libraries. You can install them using `pip`:
 
 ```bash
-pip install google-api-python-client pandas numpy seaborn
+!pip install google-api-python-client
 ```
 
 ## Python Script
@@ -152,6 +152,8 @@ playlist_id
 
 ### 6. Define a Function to Retrieve Video IDs from a Playlist
 
+This function, get_video_ids, retrieves the video IDs from a specified YouTube playlist using the YouTube Data API. It starts by making an API request to fetch the first page of results from the playlist. The video IDs from this page are appended to the video_ids list. If the response contains a nextPageToken, indicating that more pages of results are available, the function continues to make subsequent requests to retrieve all video IDs from the playlist using pagination. This ensures that the function collects all video IDs from the specified playlist. The resulting video_ids list contains all extracted video IDs for further analysis or data retrieval.
+
 ```python
 
 def get_video_ids(youtube, playlist_id):
@@ -198,6 +200,8 @@ video_ids
 
 ### 7. Define a Function to Retrieve Video Statistics
 
+This function, get_video_details, retrieves detailed information for a list of YouTube video IDs using the YouTube Data API. It processes the video IDs in chunks of 50 (due to API limitations) to make efficient requests. For each batch, it requests video details including snippet (metadata like title and publish date) and statistics (such as views, likes, and comments). The extracted data is stored in a dictionary for each video, containing the video title, published date, view count, like count, and comment count. All these dictionaries are collected into a list called all_video_stats, which is returned as the output. This output, video_details, can be used for further data analysis and visualization.
+
 ```python
 
 def get_video_details(youtube, video_ids):
@@ -235,6 +239,8 @@ video_details
 
 ### 8. Store Video Data in a DataFrame and Clean Up the Data
 
+This code stores the detailed video data retrieved into a Pandas DataFrame named video_data. It then converts the Published_date column to a datetime object and extracts only the date for easier manipulation and analysis. Additionally, it converts the Views, Likes, and Comments columns to numeric types, enabling numerical operations such as sorting and aggregation. Finally, it displays the structured video_data DataFrame, providing a tabular view of the videos' titles, published dates, views, likes, and comments for further analysis and visualization.
+
 ```python
 
 # Store the retrieved video data in a Pandas DataFrame
@@ -255,6 +261,8 @@ video_data
 
 ### 9. Sort the Data by Views and Display Top 10 Videos
 
+This code sorts the video_data DataFrame by the Views column in descending order to identify the top 10 most viewed videos. It then creates a bar plot using Seaborn to visualize the top 10 videos by their view count. The x-axis represents the number of views, while the y-axis displays the titles of the videos. This visualization provides a clear overview of the most popular videos in terms of viewership.
+
 ```python
 
 # Sort the data by views in descending order and display the top 10 most viewed videos
@@ -266,6 +274,8 @@ ay1 = sns.barplot(x='Views', y='Title', data=top10_videos)
 ```
 
 ### 10. Analyze Videos per Month
+
+This code first extracts the month from the Published_date column and creates a new Month column in video_data. It then groups the data by month and counts the number of videos published per month, storing the results in videos_per_month. To ensure the months are displayed in calendar order, the code uses a predefined sorting order. Finally, it creates a bar plot using Seaborn to visualize the number of videos published each month, giving a clear view of the publication trends across months.
 
 ```python
 
