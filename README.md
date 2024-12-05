@@ -295,4 +295,3 @@ ay2 = sns.barplot(x='Month', y='size', data=videos_per_month)
 
 ```
 
-## Conclusion
